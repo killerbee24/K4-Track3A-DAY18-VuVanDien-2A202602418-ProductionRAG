@@ -1,0 +1,190 @@
+{
+  "build": {
+    "load_and_chunk_ms": 254.93907928466797,
+    "enrichment_ms": 2.9990673065185547,
+    "index_ms": 49247.798442840576,
+    "reranker_load_ms": 8246.655702590942
+  },
+  "queries": [
+    {
+      "question": "Nhân viên được nghỉ bao nhiêu ngày khi kết hôn?",
+      "retrieval_ms": 232.5509999991482,
+      "rerank_ms": 4245.376800000486,
+      "generation_ms": 1886.5545999997266,
+      "total_ms": 6364.4823999993605,
+      "candidate_count": 20,
+      "context_count": 3
+    },
+    {
+      "question": "Bảo hiểm sức khỏe PVI có hạn mức bao nhiêu cho nhân viên?",
+      "retrieval_ms": 198.32039999982953,
+      "rerank_ms": 5460.84140000039,
+      "generation_ms": 2213.8969999996334,
+      "total_ms": 7873.058799999853,
+      "candidate_count": 20,
+      "context_count": 3
+    },
+    {
+      "question": "Phụ cấp ăn trưa hàng tháng là bao nhiêu?",
+      "retrieval_ms": 199.16270000067016,
+      "rerank_ms": 5766.301799999383,
+      "generation_ms": 2015.1652000004106,
+      "total_ms": 7980.629700000463,
+      "candidate_count": 20,
+      "context_count": 3
+    },
+    {
+      "question": "Nhân viên được nghỉ bao nhiêu ngày phép năm?",
+      "retrieval_ms": 181.91790000037145,
+      "rerank_ms": 3725.0511000002007,
+      "generation_ms": 2032.3773000000074,
+      "total_ms": 5939.3463000005795,
+      "candidate_count": 18,
+      "context_count": 3
+    },
+    {
+      "question": "Thâm niên bao nhiêu năm thì được cộng thêm ngày phép?",
+      "retrieval_ms": 182.81170000045677,
+      "rerank_ms": 4190.1358999994045,
+      "generation_ms": 1747.806600000331,
+      "total_ms": 6120.754200000192,
+      "candidate_count": 20,
+      "context_count": 3
+    },
+    {
+      "question": "Mật khẩu phải có tối thiểu bao nhiêu ký tự?",
+      "retrieval_ms": 184.98150000050373,
+      "rerank_ms": 5459.248899999693,
+      "generation_ms": 2242.815200000223,
+      "total_ms": 7887.04560000042,
+      "candidate_count": 20,
+      "context_count": 3
+    },
+    {
+      "question": "Bao lâu phải đổi mật khẩu một lần?",
+      "retrieval_ms": 182.4108000000706,
+      "rerank_ms": 4373.192000000017,
+      "generation_ms": 1769.7494000003644,
+      "total_ms": 6325.352200000452,
+      "candidate_count": 20,
+      "context_count": 3
+    },
+    {
+      "question": "Có cần kích hoạt xác thực đa yếu tố (MFA) không?",
+      "retrieval_ms": 194.99360000008892,
+      "rerank_ms": 4840.063900000132,
+      "generation_ms": 2862.958499999877,
+      "total_ms": 7898.016000000098,
+      "candidate_count": 20,
+      "context_count": 3
+    },
+    {
+      "question": "Nhân viên thử việc có được nghỉ phép năm không?",
+      "retrieval_ms": 166.50190000018483,
+      "rerank_ms": 3946.03029999962,
+      "generation_ms": 1841.8943999995463,
+      "total_ms": 5954.426599999351,
+      "candidate_count": 19,
+      "context_count": 3
+    },
+    {
+      "question": "Khi phát hiện malware trên máy, nhân viên có nên tự xử lý không?",
+      "retrieval_ms": 222.4194999998872,
+      "rerank_ms": 4907.213000000411,
+      "generation_ms": 3945.799999999508,
+      "total_ms": 9075.432499999806,
+      "candidate_count": 20,
+      "context_count": 3
+    },
+    {
+      "question": "Nhân viên thử việc có được hưởng bảo hiểm sức khỏe PVI không?",
+      "retrieval_ms": 214.11089999946853,
+      "rerank_ms": 4284.230799999932,
+      "generation_ms": 2240.216099999998,
+      "total_ms": 6738.557799999398,
+      "candidate_count": 20,
+      "context_count": 3
+    },
+    {
+      "question": "Một nhân viên Senior có 9 năm thâm niên được nghỉ bao nhiêu ngày phép năm và lương trong khoảng nào?",
+      "retrieval_ms": 613.080600000103,
+      "rerank_ms": 12014.257699999689,
+      "generation_ms": 2570.499700000255,
+      "total_ms": 15197.838000000047,
+      "candidate_count": 20,
+      "context_count": 3
+    },
+    {
+      "question": "Nếu cần mua một chiếc laptop 30 triệu cho nhân viên mới, ai phê duyệt và cần gì từ phòng CNTT?",
+      "retrieval_ms": 658.7700000000041,
+      "rerank_ms": 10118.629700000383,
+      "generation_ms": 2769.6875999999975,
+      "total_ms": 13547.087300000385,
+      "candidate_count": 20,
+      "context_count": 3
+    },
+    {
+      "question": "Nhân viên được tài trợ khóa học 25 triệu, nghỉ việc sau 8 tháng hoàn thành khóa học. Phải hoàn trả bao nhiêu?",
+      "retrieval_ms": 251.57150000086403,
+      "rerank_ms": 5103.065599999354,
+      "generation_ms": 3280.283000000054,
+      "total_ms": 8634.920100000272,
+      "candidate_count": 20,
+      "context_count": 3
+    },
+    {
+      "question": "Mentor và buddy của nhân viên mới có thể là cùng một người không? Quản lý trực tiếp có thể làm mentor không?",
+      "retrieval_ms": 257.3488999996698,
+      "rerank_ms": 5704.944300000534,
+      "generation_ms": 2658.9132999997673,
+      "total_ms": 8621.206499999971,
+      "candidate_count": 20,
+      "context_count": 3
+    },
+    {
+      "question": "Muốn mua thiết bị trị giá 55 triệu cần ai phê duyệt?",
+      "retrieval_ms": 213.97950000027777,
+      "rerank_ms": 4851.90909999983,
+      "generation_ms": 2966.272900000149,
+      "total_ms": 8032.161500000257,
+      "candidate_count": 20,
+      "context_count": 3
+    },
+    {
+      "question": "Nhân viên tạm ứng 15 triệu, sau 20 ngày mới thanh toán. Bị phạt bao nhiêu?",
+      "retrieval_ms": 223.53900000052818,
+      "rerank_ms": 5143.7530999992305,
+      "generation_ms": 3926.8525000006775,
+      "total_ms": 9294.144600000436,
+      "candidate_count": 20,
+      "context_count": 3
+    },
+    {
+      "question": "Lương thử việc của nhân viên Junior mức cao nhất là bao nhiêu?",
+      "retrieval_ms": 205.34000000043306,
+      "rerank_ms": 5426.869799999622,
+      "generation_ms": 2176.3291999996,
+      "total_ms": 7808.538999999655,
+      "candidate_count": 20,
+      "context_count": 3
+    },
+    {
+      "question": "Thông tin lương thuộc cấp độ phân loại dữ liệu nào?",
+      "retrieval_ms": 218.66640000007465,
+      "rerank_ms": 6392.569399999957,
+      "generation_ms": 2625.9659999996074,
+      "total_ms": 9237.201799999639,
+      "candidate_count": 20,
+      "context_count": 3
+    },
+    {
+      "question": "Nghỉ phép không lương 20 ngày cần ai phê duyệt?",
+      "retrieval_ms": 191.58779999997932,
+      "rerank_ms": 5018.162899999879,
+      "generation_ms": 1953.8367000004655,
+      "total_ms": 7163.587400000324,
+      "candidate_count": 20,
+      "context_count": 3
+    }
+  ]
+}

@@ -6,9 +6,10 @@ Chạy: python check_lab.py
 """
 
 import json
+import math
 import os
-import sys
 import subprocess
+import sys
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
@@ -36,6 +37,33 @@ def check_json(path: str, required_keys: list[str]) -> bool:
         if missing:
             print(f"  ❌ {path} thiếu keys: {missing}")
             return False
+        metrics = (
+            "faithfulness",
+            "answer_relevancy",
+            "context_precision",
+            "context_recall",
+        )
+        aggregate = data.get("aggregate", {})
+        if any(
+            not isinstance(aggregate.get(m), (int, float))
+            or not math.isfinite(aggregate[m])
+            or not 0 <= aggregate[m] <= 1
+            for m in metrics
+        ):
+            print(f"  ❌ {path} — metric thiếu hoặc ngoài khoảng [0, 1]")
+            return False
+        with open("test_set.json", encoding="utf-8") as test_file:
+            expected = len(json.load(test_file))
+        if (
+            data.get("evaluation_status") != "success"
+            or data.get("scored_questions", 0) != expected
+            or data.get("num_questions", 0) != expected
+        ):
+            print(
+                f"  ❌ {path} — chưa có RAGAS thật cho đủ {expected} câu; "
+                f"status={data.get('evaluation_status')}, scored={data.get('scored_questions', 0)}"
+            )
+            return False
         print(f"  ✅ {path} — keys OK")
         return True
     except (json.JSONDecodeError, FileNotFoundError) as e:
@@ -60,9 +88,15 @@ def run_tests() -> tuple[int, int]:
     """Run pytest and return (passed, total)."""
     try:
         import re
+
         result = subprocess.run(
             [sys.executable, "-m", "pytest", "tests/", "-v", "--tb=no", "-q"],
-            capture_output=True, text=True, timeout=120, encoding="utf-8", errors="replace"
+            capture_output=True,
+            text=True,
+            timeout=600,
+            encoding="utf-8",
+            errors="replace",
+            check=False,
         )
         lines = result.stdout.strip().split("\n")
         summary = lines[-1] if lines else ""
@@ -71,8 +105,12 @@ def run_tests() -> tuple[int, int]:
         passed = int(m_pass.group(1)) if m_pass else 0
         failed = int(m_fail.group(1)) if m_fail else 0
         total = passed + failed
+        if result.returncode != 0 and failed == 0:
+            total += (
+                1  # Collection/runtime errors must not be counted as a successful run.
+            )
         return passed, total
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001 - Validation must report tool failures.
         print(f"  ⚠️  pytest error: {e}")
         return 0, 0
 
@@ -83,8 +121,14 @@ def validate():
 
     # 1. Source files
     print("📁 Source code:")
-    for f in ["src/m1_chunking.py", "src/m2_search.py", "src/m3_rerank.py",
-              "src/m4_eval.py", "src/m5_enrichment.py", "src/pipeline.py"]:
+    for f in [
+        "src/m1_chunking.py",
+        "src/m2_search.py",
+        "src/m3_rerank.py",
+        "src/m4_eval.py",
+        "src/m5_enrichment.py",
+        "src/pipeline.py",
+    ]:
         if not check_file(f):
             errors += 1
 
@@ -99,24 +143,42 @@ def validate():
 
     # 3. Analysis
     print("\n📝 Analysis:")
-    check_file("analysis/failure_analysis.md")
+    if not check_file("analysis/failure_analysis.md"):
+        errors += 1
 
     # 4. Individual reflections
     print("\n👤 Individual reflections:")
     reflections = []
     ref_dir = "analysis/reflections"
     if os.path.isdir(ref_dir):
-        reflections.extend([f"{ref_dir}/{f}" for f in os.listdir(ref_dir)
-                            if f.startswith("reflection_") and f.endswith(".md") and f != "reflection_TEMPLATE.md"])
+        reflections.extend(
+            [
+                f"{ref_dir}/{f}"
+                for f in os.listdir(ref_dir)
+                if f.startswith("reflection_")
+                and f.endswith(".md")
+                and f != "reflection_TEMPLATE.md"
+            ]
+        )
     if os.path.isdir("analysis"):
-        reflections.extend([f"analysis/{f}" for f in os.listdir("analysis")
-                            if f.startswith("reflection_") and f.endswith(".md") and f != "reflection_TEMPLATE.md"])
+        reflections.extend(
+            [
+                f"analysis/{f}"
+                for f in os.listdir("analysis")
+                if f.startswith("reflection_")
+                and f.endswith(".md")
+                and f != "reflection_TEMPLATE.md"
+            ]
+        )
 
     if reflections:
         for r in set(reflections):
             print(f"  ✅ {r}")
     else:
-        print(f"  ⚠️  Chưa có file reflection cá nhân (đặt tại {ref_dir}/reflection_[HọTên].md hoặc analysis/reflection_[HọTên].md)")
+        print(
+            f"  ⚠️  Chưa có file reflection cá nhân (đặt tại {ref_dir}/reflection_[HọTên].md hoặc analysis/reflection_[HọTên].md)"
+        )
+        errors += 1
 
     # 5. TODO count
     print("\n🔧 TODO markers:")
@@ -125,15 +187,21 @@ def validate():
         print("  ✅ Không còn TODO nào")
     else:
         print(f"  ⚠️  Còn {todo_count} TODO chưa implement")
+        errors += 1
 
     # 6. Tests
     print("\n🧪 Auto-tests:")
     passed, total = run_tests()
     if total > 0:
         pct = passed / total * 100
-        print(f"  {'✅' if pct >= 80 else '⚠️'} {passed}/{total} tests passed ({pct:.0f}%)")
+        print(
+            f"  {'✅' if pct >= 80 else '⚠️'} {passed}/{total} tests passed ({pct:.0f}%)"
+        )
+        if passed != total:
+            errors += 1
     else:
         print("  ⚠️  Không chạy được tests")
+        errors += 1
 
     # 7. Summary
     print("\n" + "=" * 50)
@@ -142,7 +210,21 @@ def validate():
     else:
         print(f"❌ Có {errors} lỗi. Sửa trước khi nộp.")
     print("=" * 50)
+    os.makedirs("reports", exist_ok=True)
+    with open("reports/validation_report.json", "w", encoding="utf-8") as report:
+        json.dump(
+            {
+                "tests_passed": passed,
+                "tests_total": total,
+                "todo_count": todo_count,
+                "errors": errors,
+                "ready_to_submit": errors == 0,
+            },
+            report,
+            indent=2,
+        )
+    return errors == 0
 
 
 if __name__ == "__main__":
-    validate()
+    raise SystemExit(0 if validate() else 1)

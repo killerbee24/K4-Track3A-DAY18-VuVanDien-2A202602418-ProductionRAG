@@ -1,0 +1,85 @@
+{
+  "loaded_documents": 26,
+  "indexed_children": 117,
+  "chunking": {
+    "basic": {
+      "count": 57,
+      "avg_len": 366,
+      "min_len": 94,
+      "max_len": 565
+    },
+    "semantic": {
+      "count": 208,
+      "avg_len": 99,
+      "min_len": 6,
+      "max_len": 354
+    },
+    "hierarchical": {
+      "count": 117,
+      "avg_len": 178,
+      "min_len": 5,
+      "max_len": 256,
+      "parents": 26
+    },
+    "structure": {
+      "count": 107,
+      "avg_len": 194,
+      "min_len": 86,
+      "max_len": 565
+    }
+  },
+  "bm25_probes": {
+    "lookup": [
+      {
+        "source": "nghi_phep_dac_biet.md",
+        "score": 9.941982183989587
+      },
+      {
+        "source": "nghi_phep_dac_biet.md",
+        "score": 9.506614820004232
+      },
+      {
+        "source": "nghi_phep_dac_biet.md",
+        "score": 9.375279489096076
+      }
+    ],
+    "version": [
+      {
+        "source": "nghi_phep_dac_biet.md",
+        "score": 10.248844576187516
+      },
+      {
+        "source": "nghi_phep_khong_luong.md",
+        "score": 9.06868567499708
+      },
+      {
+        "source": "nghi_phep_nam_v2023.md",
+        "score": 7.903120057607567
+      }
+    ],
+    "numeric": [
+      {
+        "source": "mua_sam.md",
+        "score": 12.13674558269689
+      },
+      {
+        "source": "mua_sam.md",
+        "score": 11.059055743067972
+      },
+      {
+        "source": "mua_sam.md",
+        "score": 9.240921218544688
+      }
+    ]
+  },
+  "dense_backend": "docker",
+  "dense_candidates": 20,
+  "hybrid_candidates": 20,
+  "memory_roundtrip_passed": true,
+  "reranker_latency_ms": {
+    "avg_ms": 314.846766666354,
+    "min_ms": 278.5454999993817,
+    "max_ms": 382.2076999995261
+  },
+  "evaluation_note": "Local measurements; not RAGAS scores or Claude generation."
+}
